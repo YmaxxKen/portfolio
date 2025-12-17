@@ -142,24 +142,19 @@ techStack: [
             // Achievements Data
             achievements: [
                 {
-                    title: "AWS Certified Developer",
-                    image: "https://images.unsplash.com/photo-1589256469067-ea99122bbdc4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
-                    description: "Amazon Web Services Certification for developing and maintaining applications on the AWS platform. Awarded in 2022."
+                    title: "Front End Development Libraries Certification",
+                    image: "assets/certificates/freeCodeCamp.jpg",
+                    description: " freeCodeCamp (300 hours, issued July 7, 2025)."
                 },
                 {
-                    title: "Google Code Jam Finalist",
-                    image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
-                    description: "Top 1000 out of 50,000+ participants in Google's international coding competition. Achieved in 2021."
+                    title: "Third Place in T-Shirt Layout Contest",
+                      image: "assets/certificates/Tshirt.jpg",
+                    description: "In Celebratin of Nutrition Month 2019 with the Theme (Kumain ng Wasto at Maging Aktibo...Push Natin To) Given 26th of July 2019"
                 },
                 {
-                    title: "React Advanced Certification",
-                    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80",
-                    description: "Advanced React patterns and performance optimization certification from React Training. Completed in 2020."
-                },
-                {
-                    title: "Best Hackathon Project",
-                    image: null,
-                    description: "First place in Silicon Valley Hackathon 2019 for developing an innovative health-tech application."
+                    title: "Java Fundamentals Course",
+                     image: "assets/certificates/JavaFundamentals.jpg",
+                    description: "Oracle Academy (Issued June 24, 2023)."
                 }
             ],
             currentSlide: 0,
