@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kennny Soriano | Portfolio Resume </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="styling.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- I. Personal Details and Profile Picture -->
+        <header>
+            <div class="profile-section">
+                <div class="profile-picture">
+                    <img :src="profile.image" :alt="profile.name" class="profile-img">
+                </div>
+                <div class="personal-details">
+                    <h1>{{ profile.name }}</h1>
+                    <h2>{{ profile.title }}</h2>
+                    <div class="contact-info">
+                        <div class="contact-item" v-for="contact in profile.contacts" :key="contact.type">
+                            <i :class="contact.icon"></i>
+                            <span>{{ contact.value }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- II. Skills with Icons -->
+        <section id="skills">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item" v-for="skill in skills" :key="skill.name"
+                     @mouseenter="skillHoverIn($event, skill)"
+                     @mouseleave="skillHoverOut($event, skill)">
+                    <div class="skill-icon">
+                        <i :class="skill.icon"></i>
+                    </div>
+                    <div class="skill-name">{{ skill.name }}</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- III. Tech Stack -->
+        <section id="tech-stack">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="tech-categories">
+                <button v-for="category in categories" :key="category.id"
+                        :class="['category-btn', { active: activeCategory === category.id }]"
+                        @click="setCategory(category.id)">
+                    {{ category.name }}
+                </button>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-item" v-for="tech in filteredTechStack" :key="tech.name"
+                     :data-category="tech.category"
+                     @mouseenter="techHoverIn($event, tech)"
+                     @mouseleave="techHoverOut($event, tech)">
+                    <i :class="tech.icon"></i>
+                    <span>{{ tech.name }}</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- IV. Educational Background -->
+        <section id="education">
+            <h2 class="section-title">Educational Background</h2>
+            <div class="education-timeline">
+                <div class="education-item" v-for="edu in education" :key="edu.year">
+                    <div class="education-year">{{ edu.year }}</div>
+                    <div class="education-degree">{{ edu.degree }}</div>
+                    <div class="education-school">{{ edu.school }}</div>
+                    <div class="education-desc">{{ edu.description }}</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- V. Featured Projects -->
+        <section id="featured-projects">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card" v-for="project in projects" :key="project.id"
+                     :data-project="project.id"
+                     @click="openProjectModal(project)"
+                     @mouseenter="projectHoverIn($event)"
+                     @mouseleave="projectHoverOut($event)">
+                    <img :src="project.image" :alt="project.title" class="project-img">
+                    <div class="project-content">
+                        <h3 class="project-title">{{ project.title }}</h3>
+                        <p class="project-desc">{{ project.shortDescription }}</p>
+                        <div class="project-tech">
+                            <span v-for="tech in project.tech" :key="tech">{{ tech }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+     
+      <!-- Brand Styling Gallery -->
+        <section id="brand-styling">
+            <h2 class="section-title">Brand Styling</h2>
+
+            <div class="brand-gallery">
+                <div class="gallery-item" v-for="(item, index) in brandImages" :key="index">
+                    <a :href="item.src" target="_blank" rel="noopener noreferrer">
+                        <img :src="item.src" :alt="item.alt">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- VI. Achievements and Certificates -->
+        <section id="achievements">
+            <h2 class="section-title">Achievements & Certificates</h2>
+            <div class="slider-container">
+                <div class="slider" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
+                    <div class="achievement-slide" v-for="(achievement, index) in achievements" :key="achievement.title">
+                        <div class="certificate-img-container">
+                            <img v-if="achievement.image" :src="achievement.image" :alt="achievement.title" class="certificate-img">
+                            <i v-else class="fas fa-medal certificate-placeholder"></i>
+                        </div>
+                        <h3 class="achievement-title">{{ achievement.title }}</h3>
+                        <p class="achievement-desc">{{ achievement.description }}</p>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn prev-btn" @click="prevSlide">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="slider-dots">
+                        <button v-for="(achievement, index) in achievements" :key="index"
+                                :class="['slider-dot', { active: currentSlide === index }]"
+                                @click="goToSlide(index)">
+                        </button>
+                    </div>
+                    <button class="slider-btn next-btn" @click="nextSlide">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- VII. Socials and Footer -->
+        <footer>
+            <div class="social-links">
+                <a v-for="social in socialLinks" :key="social.name" :href="social.url" class="social-link" target="_blank">
+                    <i :class="social.icon"></i>
+                </a>
+            </div>
+            <p class="copyright">© {{ currentYear }} {{ profile.name }}. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
